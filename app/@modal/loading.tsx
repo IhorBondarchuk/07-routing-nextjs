@@ -4,8 +4,8 @@ export default function Loading() {
   return (
     <Modal>
       <span>
-        <p>Loading, please wait...</p>
+        <p>Note is loading, please wait...</p>
       </span>
     </Modal>
   );
-}
+};

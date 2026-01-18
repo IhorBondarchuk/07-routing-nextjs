@@ -1,28 +1,29 @@
-import { useEffect, type ReactNode } from "react";
+"use client";
+
+import React, { useEffect, type ReactNode } from "react";
 import css from "./Modal.module.css";
-import React from "react";
-import { createPortal } from "react-dom";
 
 interface ModalProps {
-  onClose: () => void;
-  children: ReactNode | React.ReactElement<{ onClose?: () => void }>;
+  readonly onClose?: () => void | undefined;
+  readonly children: ReactNode | React.ReactElement<{ onClose?: () => void | undefined }>;
 }
 
 interface ChildProps {
-  onClose?: () => void;
+  readonly onClose?: () => void | undefined;
 }
 
-export default function Modal({ onClose, children }: ModalProps) {
+export default function Modal({ children, onClose }: ModalProps) {
+
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
-      onClose();
+      onClose?.();
     }
   };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
+        onClose?.();
       }
     };
     document.addEventListener("keydown", handleKeyDown);
@@ -33,7 +34,7 @@ export default function Modal({ onClose, children }: ModalProps) {
     };
   }, [onClose]);
 
-  return createPortal(
+  return (
     <div
       className={css.backdrop}
       onClick={handleBackdropClick}
@@ -45,7 +46,6 @@ export default function Modal({ onClose, children }: ModalProps) {
           ? React.cloneElement(children, { onClose })
           : children}
       </div>
-    </div>,
-    document.body
+    </div>
   );
-}
+};

@@ -17,23 +17,29 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "NoteHub - Manage Your Notes",
-  description: "A modern note-taking application to organize your thoughts and tasks",
+  description:
+    "A modern note-taking application to organize your thoughts and tasks",
 };
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanStackProvider>
           <Header />
-          <main>{children}</main>
+          <main>
+            {children}
+            {modal}
+          </main>
           <Footer />
         </TanStackProvider>
       </body>
     </html>
   );
-}
+};

@@ -18,11 +18,13 @@ const API = axios.create({
 
 export const fetchNotes = async (
   searchText: string,
-  page: number
+  page: number,
+  tag?: string,
 ): Promise<NotesHttpResponse> => {
   const options = {
     params: {
       ...(searchText !== "" && { search: searchText }),
+      tag,
       page,
       perPage: 12,
     },

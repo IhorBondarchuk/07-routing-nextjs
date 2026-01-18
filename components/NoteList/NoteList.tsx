@@ -6,10 +6,10 @@ import css from "./NoteList.module.css";
 import Link from "next/link";
 
 interface NoteListProps {
-  notes: Note[];
+  readonly notes: Note[];
 }
 
-export default function NoteList({ notes }: NoteListProps) {
+export default function NoteList({ notes = [] }: NoteListProps) {
   const queryClient = useQueryClient();
 
   const deletionM = useMutation<void, Error, Note["id"]>({
@@ -50,4 +50,4 @@ export default function NoteList({ notes }: NoteListProps) {
       ))}
     </ul>
   );
-}
+};

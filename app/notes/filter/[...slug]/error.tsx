@@ -1,17 +1,15 @@
 "use client";
 
-type Props = {
+type ErrorMessageProps = {
   error: Error;
   reset: () => void;
 };
 
-const ErrorMessage = ({ error, reset }: Props) => {
+export default function ErrorMessage({ error, reset }: ErrorMessageProps) {
   return (
     <>
       <p>Could not fetch the list of notes. {error.message}</p>
       <button onClick={reset}>Try again</button>
     </>
   );
-};
-
-export default ErrorMessage;
+}

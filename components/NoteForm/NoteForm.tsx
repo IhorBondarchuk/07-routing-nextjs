@@ -2,22 +2,21 @@ import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
 import css from "./NoteForm.module.css";
 import { useId } from "react";
 import * as Yup from "yup";
-import type { CreateNote } from "../../types/note";
+import type { CreateNote } from "@/types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { createNote } from "@/lib/api";
+import { TAGS } from "@/constants/tags";
 
 interface NoteFormProps {
-  readonly onClose: () => void;
-}
+  readonly onClose?: () => void;
+};
 
 interface NoteFormValues {
   title: string;
   content: string;
   tag: string;
-}
-
-const TAGS = ["Todo", "Work", "Personal", "Meeting", "Shopping"] as const;
+};
 
 const initialValues: NoteFormValues = {
   title: "",
@@ -55,12 +54,12 @@ export default function NoteForm({ onClose }: NoteFormProps) {
 
   const handleSubmit = (
     values: NoteFormValues,
-    actions: FormikHelpers<NoteFormValues>
+    actions: FormikHelpers<NoteFormValues>,
   ) => {
     creationM.mutate(values as CreateNote, {
       onSuccess: () => {
         actions.resetForm();
-        onClose();
+        onClose?.();
       },
     });
   };
@@ -139,4 +138,4 @@ export default function NoteForm({ onClose }: NoteFormProps) {
       )}
     </Formik>
   );
-}
+};
